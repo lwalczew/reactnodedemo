@@ -1,6 +1,6 @@
 import actionTypes from '../constants/actionTypes';
 
-function NewsItemReceived(newsItem) {
+function newsItemReceived(newsItem) {
   return {
     type: actionTypes.NEWSITEM_RECEIVED,
     newsItem: newsItem
@@ -14,18 +14,27 @@ function newsReceived(news) {
   }
 }
 
+function newsItemLoading() {
+  return {
+    type: actionTypes.NEWSITEM_LOADING
+  }
+}
+
 export function fetchNews(fakeNews) {
-  console.log('presend');
   return dispatch => {
-    return fetch('http://localhost:5000/news')
+    return fetch('/news')
     .then(response => response.json())
-    .then(data => console.log(data))
+    .then(data => dispatch(newsReceived(data.data)))
     .catch(e => console.log(e));
   }
 }
 
-export function fetchNewsItem(fakeNewsItem) {
+export function fetchNewsItem(id) {
   return dispatch => {
-    dispatch(NewsItemReceived(fakeNewsItem));
+    dispatch(newsItemLoading());
+    return fetch(`/news/${id}`)
+    .then(response => response.json())
+    .then(data => dispatch(newsItemReceived(data.data)))
+    .catch(e => console.log(e));
   }
 }

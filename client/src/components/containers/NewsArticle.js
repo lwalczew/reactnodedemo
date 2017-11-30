@@ -5,24 +5,16 @@ import {fetchNewsItem} from '../../actions/actions';
 
 class NewsArticle extends Component {
   componentDidMount() {
-    let fakeNewsItem = {
-      id: 1,
-      title: 'Mad owl chases car',
-      teaser: 'Mad Owl seen tormenting drivers in Morecambe',
-      body: 'Yesterday and owl chased a car. It was AWESOME.'
-    };
-
-    this.props.dispatch(fetchNewsItem(fakeNewsItem));
+    this.props.dispatch(fetchNewsItem(this.props.match.params.id));
   }
   
   render() {
-    let {newsItem} = this.props;
-    
+
     return (
       <div>
         <h2>News Story</h2>
         <ul>
-          {newsItem ? <NewsItemDetail data={newsItem} /> : null}
+          {this.props.newsItemLoading ? <div>Loading...</div> : <NewsItemDetail data={this.props.newsItem} />}
         </ul>
       </div>
     )
@@ -31,7 +23,8 @@ class NewsArticle extends Component {
 
 const mapStateToProps = state => {
   return {
-    newsItem: state.news.newsItem
+    newsItem: state.news.newsItem,
+    newsItemLoading: state.news.newsItemLoading
   }
 }
 
