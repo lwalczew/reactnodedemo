@@ -18,6 +18,12 @@ const fakeNews = [{
   body: 'This is some body text regarding the news story of the owl stealing a pork pie from a shop in swindon'
 }];
 
+router.get('/', function(req, res, next) {
+  res.status(200).send({
+    data: fakeNews
+  })
+})
+
 router.get('/:id', function(req, res, next) {
   const id = req.params.id;
   const picked = fakeNews.find(o => o.id === id);

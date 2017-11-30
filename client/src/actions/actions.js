@@ -15,8 +15,12 @@ function newsReceived(news) {
 }
 
 export function fetchNews(fakeNews) {
+  console.log('presend');
   return dispatch => {
-    dispatch(newsReceived(fakeNews));
+    return fetch('http://localhost:5000/news')
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(e => console.log(e));
   }
 }
 
