@@ -3,6 +3,7 @@ const routes = require('./routes/index');
 const newsRoute = require('./routes/news');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
 
 require('dotenv').config();
 
@@ -21,6 +22,9 @@ mongoose.connect(dbURL, function(err) {
 
 app.use(cors());
 app.options('*', cors());
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 
 app.use('/', routes);
 app.use('/news', newsRoute);

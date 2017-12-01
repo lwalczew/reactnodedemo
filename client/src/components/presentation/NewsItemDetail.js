@@ -15,7 +15,7 @@ export default class NewsItemDetail extends Component {
 
 NewsItemDetail.propTypes = {
   data: PropTypes.shape({
-    id: PropTypes.number.isRequired,
+    _id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     body: PropTypes.string.isRequired
   })
